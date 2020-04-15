@@ -7,8 +7,7 @@ public interface List<E> {
 
     int size();
 
-
     boolean isEmpty();
 
-    void removeByIndex(int index);
+    void removeItemByIndex(int index);
 }

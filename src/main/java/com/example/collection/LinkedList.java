@@ -17,7 +17,7 @@ public class LinkedList<E> implements List<E> {
     }
 
     @Override
-    public void removeByIndex(int index) {
+    public void removeItemByIndex(int index) {
 
     }
 }
