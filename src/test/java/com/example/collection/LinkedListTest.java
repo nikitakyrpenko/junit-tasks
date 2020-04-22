@@ -5,30 +5,30 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-public class ArrayListTest {
+public class LinkedListTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    private ArrayList<Integer> items;
+    private LinkedList<Integer> items;
 
     @Before
-    public void initList() {
-        items = new ArrayList<>();
+    public void init(){
+        items = new LinkedList<>();
     }
 
     @Test
-    public void isEmptyShouldReturnTrueForEmptyList() {
-        final boolean expected = true;
-        final boolean actual = items.isEmpty();
+    public void isEmptyShouldReturnTrueIfListIsEmpty(){
+       final boolean expected = true;
+       final boolean actual = items.isEmpty();
 
-        assertEquals(expected, actual);
+       assertEquals(expected, actual);
     }
 
     @Test
-    public void isEmptyShouldReturnFalseForNotEmptyList() {
+    public void isEmptyShouldReturnFalseIfListIsNotEmpty(){
         items.addItem(1);
 
         final boolean expected = false;
@@ -38,7 +38,7 @@ public class ArrayListTest {
     }
 
     @Test
-    public void sizeShouldReturnZeroIfListEmpty(){
+    public void sizeShouldReturnZeroIfListIsEmpty(){
         final int expected = 0;
         final int actual = items.size();
 
@@ -56,7 +56,7 @@ public class ArrayListTest {
     }
 
     @Test
-    public void sizeShouldReturnTwoIfListHasTwoElements(){
+    public void sizeShouldReturnTwoIfListHasTwoElement(){
         items.addItem(1);
         items.addItem(2);
 
@@ -67,44 +67,19 @@ public class ArrayListTest {
     }
 
     @Test
-    public void sizeShouldReturn3IfListHas3Elements(){
-        items.addItem(1);
-        items.addItem(2);
-        items.addItem(3);
-
-        final int expected = 3;
-        final int actual = items.size();
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void removeItemByIndexShouldRemoveFirstItemFromListThatHaveOneElement() {
+    public void removeItemByIndexShouldRemoveItemFromListWithOneElement(){
         items.addItem(1);
 
         items.removeItemByIndex(0);
 
-        final int expected = 0;
-        final int actual = items.size();
+        final boolean expected = true;
+        final boolean actual = items.isEmpty();
 
         assertEquals(expected, actual);
     }
 
     @Test
-    public void removeItemByIndexShouldRemoveFirstItemFromListThatHaveTwoElements(){
-        items.addItem(1);
-        items.addItem(2);
-
-        items.removeItemByIndex(0);
-
-        final int expected = 1;
-        final int actual = items.size();
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void  removeItemByIndexShouldRemoveSecondItemFromListThatHaveTwoElements(){
+    public void removeItemByIndexShouldRemoveSecondItemFromListWithTwoElements(){
         items.addItem(1);
         items.addItem(2);
 
@@ -117,45 +92,39 @@ public class ArrayListTest {
     }
 
     @Test
-    public void removeItemByIndexShouldRemoveMiddleItemFromListThatHaveSixElements(){
+    public void removeItemByIndexShouldRemoveFirstItemFromListWithTwoElements(){
         items.addItem(1);
         items.addItem(2);
-        items.addItem(3);
-        items.addItem(4);
-        items.addItem(5);
-        items.addItem(6);
 
-        items.removeItemByIndex(3);
+        items.removeItemByIndex(0);
 
-        final int expected = 5;
+        final int expected = 1;
         final int actual = items.size();
 
         assertEquals(expected, actual);
     }
 
     @Test
-    public void removeItemByIndexShouldThrowIllegalArgumentExceptionIfIndexLessThenZero(){
+    public void removeItemByIndexShouldThrowIllegalArgumentExceptionIfIndexIsLessThenZero(){
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("Wrong argument value");
 
-        items.removeItemByIndex(-5);
+        items.removeItemByIndex(-1);
     }
 
     @Test
     public void removeItemByIndexShouldThrowIllegalArgumentExceptionIfIndexMoreThenSize(){
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("Wrong argument value");
-        items.addItem(1);
+        items.addItem(0);
 
-        items.removeItemByIndex(197);
+        items.removeItemByIndex(300);
     }
 
     @Test
     public void removeItemByIndexShouldThrowIllegalArgumentExceptionIfIndexIsZeroButListIsEmpty(){
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("List is empty");
-
         items.removeItemByIndex(0);
     }
-
 }

@@ -1,5 +1,7 @@
 package com.example.collection;
 
+import java.util.Arrays;
+
 public class ArrayList<E> implements List<E> {
     private static final int DEFAULT_SIZE = 2;
 
@@ -36,6 +38,19 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public void removeItemByIndex(int index) {
-        throw new UnsupportedOperationException();
+        if (index < 0 || index > size){
+            throw new IllegalArgumentException("Wrong argument value");
+        }
+        if (index == 0 && size == 0){
+            throw new IllegalArgumentException("List is empty");
+        }
+
+        Object[] temp = new Object[size-1];
+
+        System.arraycopy(items, 0, temp, 0, index);
+        System.arraycopy(items, index+1, temp, index, size-index-1);
+
+        items = temp;
+        size--;
     }
 }
